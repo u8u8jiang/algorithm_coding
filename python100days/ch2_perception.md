@@ -59,3 +59,150 @@ def relu(x):
 sigmoid函數 是最早使用的函數, 而最近較常使用的是ReLU   
 若超過0, 則會直接輸出；若0以下, 則輸出0   
 
+>  :computer: 利用numpy運算多維陣列, 再執行神經網路.   
+
+```py
+# recall: 多維陣列
+
+import numpy as np
+
+A = np.array([1, 2, 3, 4])
+print(A)
+np.ndim(A)
+A.shape     #tuple  
+A.shape[0]
+
+B = np.array([[1,2], [3,4], [5,6]])
+print(B)
+np.ndim(B)
+B.shape     #tuple  
+
+
+# recall: dot product 矩陣乘積
+A = np.array([[1,2], [3,4]])
+B = np.array([[5,6], [7,8]])
+np.dot(A,B)
+
+
+A = np.array([[1,2,3], [4,5,6]])
+B = np.array([[1,2], [3,4], [5,6]])
+np.dot(A,B)   #矩陣A行=矩陣B列
+
+
+```
+
+
+```py
+
+## 執行三層的訊息傳遞  
+
+# 輸入層到第一層
+X = np.array([1.0, 0.5])
+W1 = np.array([[0.1, 0.3, 0.5], [0.2, 0.4, 0.6]])
+B1 = np.array([0.1, 0.2, 0.3])
+
+# print(X.shape)
+# print(W1.shape)
+# print(B1.shape)
+
+A1 = np.dot(X, W1) + B1
+Z1 = sigmoid(A1) #通過活化函數, sigmoid fu
+
+
+# 第一層到第二層
+W2 = np.array([[0.1, 0.4], [0.2, 0.5], [0.3, 0.6]])
+B2 = np.array([0.1, 0.2])
+A2 = np.dot(Z1, W2) + B2
+Z2 = sigmoid(A2)
+
+
+# 第二層到輸出層
+# 執行過程與前面相同, 僅最後的活化函數與隱藏層不同.   
+def identity_fu(x):
+    return x
+
+W3 = np.array([[0.1, 0.3], [0.2, 0.4]])
+B3 = np.array([0.1, 0.2])
+A3 = np.dot(Z3, W3) + B3
+Y = identity_fu(A3)
+
+```
+
+* 隱藏層的活化函數 h(x), 輸出層的活化函數 sigma(x) 
+* 輸出層的活化函數, 回歸問題-恆等函數, 分類問題-sigmoid_fu, 多分類問題-softmax_fu     
+
+```py
+
+## 統一執行處裡 
+import numpy as np
+
+def init_network():
+    network = {}
+    network['W1'] = np.array([[0.1, 0.3, 0.5], [0.2, 0.4, 0.6]])
+    network['b1'] = np.array([0.1, 0.2, 0.3])
+    network['W2'] = np.array([[0.1, 0.4], [0.2, 0.5], [0.3, 0.6]])
+    network['b2'] = np.array([0.1, 0.2])
+    network['W3'] = np.array([[0.1, 0.3], [0.2, 0.4]])
+    network['b3'] = np.array([0.1, 0.2])
+    return network
+
+def sigmoid(x):
+    return 1/(1 + np.exp(-x) )
+def identity_fu(x):
+    return x
+
+
+def forward(netwark, x):
+    W1, W2, W3 = network['W1'], network['W2'], network['W3'] 
+    b1, b2, b3 = network['b1'], network['b2'], network['b3']
+
+    a1 = np.dot(x, W1) + b1
+    z1 = sigmoid(a1)
+    a2 = np.dot(z1, W2) + b2
+    z2 = sigmoid(a2)
+    a3 = np.dot(z2, W3) + b3
+    y = identity_fu(a3)
+
+    return y
+
+
+network = init_network()
+x = np.array([1.0, 0.5])
+y = forward(network, x)
+print(y)
+    
+```
+* init_network()進行權重與偏權值的初始化, 並儲存在字典型態的network中.    
+* forward(), 統一執行 把輸入訊號轉換成輸出的流程   
+* others also have "backward", 即輸出往輸入方向的處理.     
+
+```py
+## 輸出層設計
+
+def softmax(a):
+    exp_a = np.exp(a)
+    sum_exp_a = np.sum(exp_a)
+    y = exp_a / sum_exp_a
+
+    return y 
+# 如上設計, 容易溢位
+
+
+def softmax(a):
+    c = np.max(a)
+    exp_a = np.exp(a-c)  #防範溢位
+    sum_exp_a = np.sum(exp_a)
+    y = exp_a / sum_exp_a
+
+    return y    
+
+```
+* softmax輸出和為1, 因此softmax的輸出可以視為 對應類別的機率   
+* 因為其為單調函數, 輸出最大神經元的位置不變, 因此在進行分類時, 可以省略輸出層的softmax函數.   
+* 解決機器學習問題, 步驟可以分為"學習"與"推論"兩階段, 一開始利用學習階段學習模型, 接著在推論階段, 使用學習過的模型, 對未知的資料禁行推論. 推論階段一般會省略softmax函數   
+
+# 辨識手寫數字   
+* 使用學習完的參數, 執行神經網路的推論處理. 這種推論處理, 又稱為神經網路的正向傳播(forward propagation).   
+* 和解決機器學習步驟一樣, 使用神經網路解問題時, 一開始也要使用訓練資料進行權重學習, 推論時使用學習過的參數, 將輸入資料進行分類.   
+
+

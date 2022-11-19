@@ -20,17 +20,12 @@ class simpleNet:
 
         return loss
 
+x = np.array([0.6, 0.9])
+t = np.array([0, 0, 1])   #label
 
 net = simpleNet()
-print(net.W)
 
-x = np.array([0.6, 0.9])
-p = net.predict(x)
-print(p)
-
-
-t = np.array([0, 0, 1])   #label
-net.loss(x, t)
 f = lambda w: net.loss(x, t)
 dW = numerical_gradient(f, net.W)
+
 print(dW)

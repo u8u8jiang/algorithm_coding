@@ -129,6 +129,82 @@ init_x = np.array([-3.0, 4.0])
 gradient_descent(fu, init_x=init_x, lr=0.1, step_num=100)
 ```
 
-gradient_simplenet.py   
-* 形狀2*3的權重參數, 
+> /gradient_simplenet.py   
+* 形狀2*3的權重參數   
+```py
+class simpleNet:
+...
 
+# test
+net = simpleNet()
+print("net.w: ", net.W)
+
+x = np.array([0.6, 0.9])
+p = net.predict(x)
+print("p= ", p)
+
+t = np.array([0, 0, 1])   #label
+loss = net.loss(x, t)
+print("loss= ", loss)
+
+f = lambda w: net.loss(x, t)
+dW = numerical_gradient(f, net.W)
+print("dW= ", dW)
+```
+
+## 小結: 執行學習演算法   
+:triangular_flag_on_post: 小批次, 計算梯度, 更新參數, 重複   
+* 前提: 神經網路有適合的權重與偏權值, 為了符合訓練資料, 而調整權重與偏權值, 稱為 "學習".   
+* **Step1. 小批次:** 從訓練資料隨機挑選部分資料, 挑選出的資料稱為 "小批次". 階段目標為- 減少小批次的損失函數.   
+* **Step2. 計算梯度:** 為了減少小批次的損失函數, 計算各權重參數的梯度, 梯度會顯示 損失函數值減少最多的方向.   
+* **Step3. 更新參數:** 權重參數只往梯度方向微量更新.    
+* **Step4. 重複**
+    * 這邊使用的資料是隨機挑選 作為小批次, 又稱為 stochastic gradient descent(SGD).   
+
+> /two_layer_net.py   
+* def init, predict, loss, accuracy, numerical_gradient
+* init: 權重是按照常態分佈的亂數進行初始化   
+* def gradient: 誤差反向傳播法,  vs to numerical_gradient(self, x, t)-使用數值微分算參數的梯度, gradient(self, x, t)-可較快得到結果.   
+
+```py
+class TwoLayerNet:
+...
+
+# test
+
+net = TwoLayerNet(input_size=784, hidden_size=100, output_size=10)
+a1 = net.params['W1'].shape     #(784, 100)
+a2 = net.params['b1'].shape     #(100,), 第一層的偏權值   
+a3 = net.params['W2'].shape     #(100, 10)
+a4 = net.params['b2'].shape     #(10)
+print(a1, a2, a3, a4)
+
+# forward, 推論處理(正向處理)  
+x = np.random.rand(100, 784)   #虛擬的輸入資料  
+y = net.predict(x)
+t = np.random.rand(100, 10)    #虛擬的label   
+
+grads = net.numerical_gradient(x, t)
+b1 = grads['W1'].shape     #(784, 100)
+b2 = grads['b1'].shape     #(100,), 第一層的偏權值   
+b3 = grads['W2'].shape     #(100, 10)
+b4 = grads['b2'].shape     #(10)
+print(b1, b2, b3, b4)
+```
+
+> /train_neuralnet.py    
+* 假設小批次=100, 每次從 60,000 筆訓練資料中隨機抽取100筆資料    
+    * 接著 計算梯度, 利用準確度SGD更新參數, 重複(iteration)10,000次   
+    * 每次更新, 計算訓練資料的損失函數, 將值新增在list中   
+    * 用圖表顯示損失函數變化    
+* 隨著學習次數增加, 損失函數逐漸減少, 表示權重逐漸適應資料
+* 每1 epoch計算所有訓練資料與測試資料的辨識準確度, 並且記錄結果.  
+    * 為甚麼每 1 epoch為單位計算辨識準確度?   
+    * 因為若是在for中紀錄, 很花時間. 
+    * 隨著epoch提升, 辨識準確度皆提升, 且兩條線幾乎重疊, 表示沒有過度學習.        
+
+```py
+a = np.arange(len(train_loss_list))
+plt.plot(a, train_loss_list, label='loss')
+plt.show()
+```

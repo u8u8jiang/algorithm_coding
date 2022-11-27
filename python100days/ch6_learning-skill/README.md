@@ -7,7 +7,7 @@
 5. 超參數最佳化的設定   
     
 
-## 1. 更新參數(Optimization)     
+# 1. 更新參數(Optimization)     
 神經網路的學習目的是, 盡量縮小損失函數的參數, 
 - Before: 計算參數的梯度(微分), 往梯度方向更新參數, 逐漸趨近最佳參數. 稱為 *Stochastic Gradient Descent* (SGD).   
 蒙著眼走, 只要朝著目前地面最傾斜的地方前進, 遲早有天可以到達深淵.    
@@ -55,7 +55,7 @@
 * 與SGD相比, 其他三種手法的學習速度的確較快, 有時辨識效能也較好.   
 
 
-## 2. 權重的預設值
+# 2. 權重的預設值
 * 透過weight decay(權重衰減), 縮小權重值, 避免過度學習.    
 * 將權重設為0, 權重為均一值, 需要隨機的預設值, 以破壞權重的對稱結果.   
 * 觀察隱藏層的活化層(activation)分布, 隨著權重預設值產生何種變化. 在五層神經網路中, 傳遞隨機產生的輸入資料, 利用分布圖繪製各層的活化資料分布.   
@@ -107,10 +107,96 @@ tanh與sigmoid函數一樣, 都是呈現s型曲線函數, tanh在原點(0, 0)呈
 > weight_init_compare.py    
 * 比較"std=0.01", "Xavier預設值", "He預設值"進行實驗.   
 * "std=0.01"完全不學習, "Xavier預設值", "He預設值"可順利學習, 但"He預設值"的學習速度較快.    
-* 權重預設值影響神經網路學習成功與否    
+* 權重預設值影響神經網路學習成功與否, 只要妥善設定權重的預設值, 就能讓各層的activation分布具有適當的廣度, 順利學習.     
 ![](image3.png)    
 
 
-## 3. batch normalization    
+# 3. Batch Normalization(Batch Norm)-2015    
+* 只要妥善設定權重的預設值, 就能讓各層的activation分布具有適當的廣度, 順利學習. 與其為了讓各層擁有適當的廣度, 不如強制調整activation分布.       
+* Batch Norm 具有以下優點: 可快速學習(因為增加學習率), 不過度依賴預設值(不會對預設值產生過度反應), 控制過度學習(減少dropout等必要性).    
+* 把batch norm層插入神經網路中, 在學習過程中, 以小批次為單位, 依照小批次進行正規化(讓資料分布平均為0, 分散為1的正規化處理.) 在活化函數前後加入batch norm, 可以減少資料分布的偏差.     
+
+> batch_norm_test.py    
+* 使用MNIST檢視使用batch norm層前後, 學習速度的變化. batch norm提升了學習速度   
+* 設置不同權重預設值, 在使用batch norm後, 學習速度皆有提升. 
+batch norm不僅可以促進學習速度, 權重預設值亦會變得更為穩健, 較不會過度依賴預設值.       
 
 
+# 4. 正規化- weight decay, dropout 
+* 設計複雜且表現力高的模型, 降低過度學習   
+造成過度學習的原因: a.擁有大量參數且表現力高的模型, b.訓練資料太少    
+
+> overfit_weight_decay.py  
+* 減少訓練集(從60,000減為300個), 提高網路複雜度(7層網路, 每層網路100個), 活化函數ReLU    
+* 按照每epoch, 分別計算 訓練資料 與 測試資料 的辨識準確度, (train_acc_list, test_acc_test).     
+計算出的辨識準確度, 超過100 epoch後 幾乎是100%, 而測試資料與辨識準確度有很大的差距, 是為過度適應訓練資料的結果.        
+
+```py
+# 為了製造過度學習而減少學習資料
+x_train = x_train[:300]
+t_train = t_train[:300]
+
+# weight_decay_lambda = 0 
+weight_decay_lambda = 0.1
+```
+
+* 以weight decay 控制過度學習, 在學習過程中, 針對擁有較大權重的部分課以罰金. (過度學習就是權重參數太大...) 
+* 神經網路的學習以減少損失函數為目的     
+=> 權重的平方範數(L2-norm)與損失函數相加, 可以抑制權重變大.   
+假設權重W, L2-norm的weight decay是 1/2 * lamda * W^2, here lamda is 控制正規化強度的超參數.   
+lamda愈大, 會對取得的大權重值, 課以較重的罰金.   
+1/2是為了把微分結果變成 lamda*W 的調整用定數.   
+
+> overfit_dropout.py
+* 當神經網路的模型變複雜時, 單憑weight decay, 很難解決過度學習問題.   
+* Dropout是一邊隨機消除神經元, 一邊學習的手法.       
+訓練時, 傳遞時, 會隨機挑選(隱藏層)刪除的神經元；     
+測試時, 會傳遞全部的神經元訊號, 但各神經元的輸出, 要乘上訓練時刪除的神經元, 再傳遞.   
+
+```py
+self.mask = np.random.rand(*x.shape) > self.dropout_ratio   
+```
+* 正向傳播時, 把刪除的神經元當作false儲存在self.mask中, self.mask是隨機產生與x相同形狀的陣列, 只有這個值比dropout_ratio大的元素當作true. 在正向傳播時, 沒有通過訊號的神經元, 在反向傳播時, 訊號會就此停住.    
+* 學習時, dropout隨機刪除神經元, 解釋成每次學習不同模型.    
+推論時, 針對神經元的輸出, 乘上刪除比例, 取出模型的平均值. 換句話說, 可以把dropout視為用一個神經網路, 達到與整體學習(ensemble learning) 的效果.    
+
+
+# 5. 驗證超參數(hyper-parameter)       
+* 超參數是指: 各層的神經元數量, 批次大小batch, 參數更新的學習率lr, weight decay...    
+* 不可以使用測試資料評估超參數效能, 需以驗證資料(validation data)    
+
+```py
+(x_train, t_train), (x_test, t_test) = load_mnist(normalize=True)
+x_train, t_train = shuffle_dataset(x_train, t_train)  #混合訓練資料, common/util.py
+
+#分別驗證資料
+validation_rate = 0.20
+validation_num = int(x_train.shape[0] * validation_rate)
+
+x_val = x_train[:validation_num]
+t_val = t_train[:validation_num]
+x_train = x_train[validation_num:]
+t_train = t_train[validation_num:]
+```
+
+**超參數的最佳化**    
+* 關鍵在於: 逐漸縮小"優良"超參數的範圍. 隨機選出超參數(取樣), 利用樣本值評估辨識準確度. 反負ˋ數次後, 觀察辨識準確度的結果.      
+在超參數最佳化過程, 縮小學習用的循環周期epoch, 能有效縮短每次評估所需的時間.    
+進行超參數最佳化時, 如果希望採取更精煉的手法, 可以使用 Bayesian Optimization.    
+
+> hyperparameter_optimization.py   
+```py
+# hyper-par 測試範圍
+weight_decay = 10 ** np.random.uniform(-8, -4)
+lr = 10 ** np.random.uniform(-6, -2)
+```
+* 隨機取樣, 再使用該值進行學習, 後續以各種超參數反覆進行學習, 觀察優良的超參數位於何處.   
+* 觀察best1~best5, 順利學習的範圍: lr=0.001~0.01；weight decay=10^-8~10^-6,    
+逐漸縮小超參數範圍, 最後挑選最後的超參數值.    
+
+=========== Hyper-Parameter Optimization Result ===========       
+Best-1(val acc:0.82) | lr:0.008414045473405648, weight decay:2.724528337909996e-07    
+Best-2(val acc:0.79) | lr:0.007930400628154869, weight decay:1.213357878149684e-08    
+Best-3(val acc:0.77) | lr:0.00638051196467228, weight decay:1.9296049856882277e-05    
+Best-4(val acc:0.7) | lr:0.005466233814588296, weight decay:6.651732039937943e-07    
+Best-5(val acc:0.69) | lr:0.005256947240579147, weight decay:8.707975567414897e-07      

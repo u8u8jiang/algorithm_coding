@@ -1,0 +1,3 @@
+
+## ch7 convolutional neural network (CNN)   
+* 影像辨識, 聲音辨識...   

@@ -17,8 +17,33 @@
 ![](image1.png)     
 ![](image2.png)     
 
+# application: 
+1. question answering 問答系統     
+![](image3.png)    
+基於使用場景, 建立F&Q- 法律的知識圖譜...       
 
+2. sentiment analysis 情感分析
+![](image4.png)     
 
+3. machine translation 機器翻譯
+![](image5.png)     
+使用gpu,    
+需要大量文本, 分布式集群才能訓練出頂好的效果      
 
+4. text summarization 自動摘要      
+5. chatbot 聊天機器人
+無聊了, 隨便聊一聊          
+想定一個機票        
+不知道自己要作甚麼      
+
+6. information extration 信息抽取   
+78成需要此技術, 包括爬蟲 也需要     
+在怎樣的文本中提取關鍵事件      
+
+# NLP 技術四維度    
+semantic(語意), symantic(句子結構), morphology(單詞), phonetics(聲音)   
+* 單詞: 分詞, POS-詞性, NER-named entity recognition命名實體識別(搭建文字圖譜, 問答系統會用到)    
+* 句子結構: 句法分析, 依存分析-單詞間的關係   
+* 語意: NLU, 透過機器學習算法, 如情緒分析     
 
 

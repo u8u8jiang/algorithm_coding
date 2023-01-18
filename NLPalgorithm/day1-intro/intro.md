@@ -42,8 +42,16 @@
 
 # NLP 技術四維度    
 semantic(語意), symantic(句子結構), morphology(單詞), phonetics(聲音)   
-* 單詞: 分詞, POS-詞性, NER-named entity recognition命名實體識別(搭建文字圖譜, 問答系統會用到)    
+* 單詞: 分詞, POS-詞性, :star: NER-named entity recognition命名實體識別(搭建文字圖譜, 問答系統會用到)    
 * 句子結構: 句法分析, 依存分析-單詞間的關係   
 * 語意: NLU, 透過機器學習算法, 如情緒分析     
+  
+知識圖譜可將不同數據源串起來, 並給予很直觀的展示    
+transformer? goggle translator has used deep learning   
+parsing(句法分析): CYK, 使用到dynamic programming(動態規劃)
+dependency parcing(依存分析): 
 
-
+# What are the major open problems in natural language understanding?   
+![](image6.png)     
+![](image7.png)     
+![](image8.png)     

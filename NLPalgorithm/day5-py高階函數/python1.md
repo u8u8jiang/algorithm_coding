@@ -9,15 +9,6 @@ python三大推導式
 閉包        
 裝飾器      
 
-numpy基礎       
-numpy數組的創建     
-numpy的矢量化運算       
-numpy的花式索引     
-numpy數組轉置和軸對換       
-條件邏輯轉數組      
-數學運算與排序      
-numpy文件處理       
-線性代數函數和隨機漫步例子      
 
 ----
 
@@ -154,5 +145,77 @@ filter1 = make_filter("8")  #這一行調用了make_filter函數, 接受了 the_
 
 filter_result = filter1("data.csv")
 # print(filter_result)
-
 ```
+
+## 7. 裝飾器, 裝飾器, 註解    
+
+```py
+# 獲取函數運行的時間    
+
+import time
+
+def runtime(func):
+    def get_time():
+        print(time.time())
+        func()
+    return get_time
+
+@runtime
+def student_run():
+    print("學生跑")
+
+student_run()
+```
+```py
+# 如果函數有參數怎麼解決
+# 有參數的裝飾器
+
+import time
+
+def runtime(func):
+    def get_time(*args):
+        print(time.time())
+        func(*args)
+    return get_time
+
+@runtime
+def student_run(i):
+    print("學生跑")
+@runtime
+def student_run1(i,j):
+    print("學生跑1")
+
+student_run(1)
+student_run1(1,2)
+```
+
+```py
+# 關鍵字參數
+
+import time
+
+def runtime(func):
+    def get_time(*args, **kwargs):
+        print(time.time())
+        func(*args, **kwargs)
+    return get_time
+
+@runtime
+def student_run(i,j):
+    print("學生跑")
+
+@runtime
+def student_run1(*args, **kwargs):
+    print("學生跑1")
+
+@runtime
+def student_run2():
+    print("學生跑2")
+
+student_run(1,2)
+student_run1(5, i = 1, j=2)
+student_run2()
+```
+
+ex. 開發一個語法糖, 實現參數的類型準確性    
+在python中, 大家都知道python的數據類型是弱類型, 比如說函數只允許傳字符串.   

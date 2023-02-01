@@ -1,15 +1,9 @@
 
-
 import pandas as pd
 from pandas import Series, DataFrame
+import matplotlib.pyplot as plt
+import numpy as np
+from numpy.random import randn
 
-# 缺失數據的處理 
-data = {'LiLei':None, 'HanMeimei':25, 'Tony':None, 'Jack':50}
-obj = Series(data)
-print(obj)
-obj.name = 'NameAndAge'
-obj.index.name = 'Xingming'
-print(obj)
-
-
-
+s = Series(randn(10).cumsum(), index=np.arange(0, 100, 10))
+s.plot()

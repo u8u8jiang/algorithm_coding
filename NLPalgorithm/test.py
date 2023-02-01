@@ -1,16 +1,15 @@
 
 
-import numpy as np
-import matplotlib.pyplot as plt
+import pandas as pd
+from pandas import Series, DataFrame
 
-position = 0
-walk = [position]   #步值初始化
-steps = 1000    #步數設置   
+# 缺失數據的處理 
+data = {'LiLei':None, 'HanMeimei':25, 'Tony':None, 'Jack':50}
+obj = Series(data)
+print(obj)
+obj.name = 'NameAndAge'
+obj.index.name = 'Xingming'
+print(obj)
 
-for i in range(steps):
-    step = 1 if np.random.randint(0,2) else -1
-    position += step
-    walk.append(position)
 
-plt.plot(walk)
-print((np.abs(walk)>10).argmax())
+

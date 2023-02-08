@@ -15,14 +15,26 @@
 * 完成至少6篇技術論文寫作    
 * 個人github項目   
 * 製作簡歷   
-   
-
 
 5 months- 20 weeks   
 404/20= 20, 每天4堂課   
 
 
 AI eng 必備的核心技能: 現實生活中問題-> (抽象)數學優化問題-> 通過合適的工具解決   
+
+
+## reference:      
+傳統NLP:  http://web.standford.edu/~jurafsky/teaching.html          
+深度NLP:  http://web.standford.edu/class/cs224n/            
+信息抽取:   http://www-bcf.usc.edu/~xiangren/ml4know19spring/           
+機器學習:  https://homes.cs.washington.edu/~guestrin/teaching.html          
+機器翻譯:   USC CSCI 662            
+
+
+
+
+
+
 
 
 

@@ -2,6 +2,7 @@
 # Python 高階函數的應用
 
 
+
 ## Python1  
 lambda 表達式   
 map函數的應用   

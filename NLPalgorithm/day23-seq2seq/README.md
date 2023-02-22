@@ -16,5 +16,6 @@ b. RNN/LSTM -> RNN/LSTM
 相似意思的不同語言, 映射到同一個meaning space.      
 ![](image1.png)     
 inference & decoding        
-
+![](image2.png) 
+![](image3.png) 
 

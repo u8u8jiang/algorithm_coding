@@ -10,7 +10,12 @@
     * eventually set up a deployment server and 
     * find a way to get the trained model to run on it.
 
-* 深度學習模型研究實戰經驗，神經網絡的設計、debug方法，以及人工智慧算法設計與改進思路。     
+![](.\images\image1.jpg)        
+![](.\images\image2.jpg)        
+
+* 深度學習模型研究實戰經驗，神經網絡的設計、debug方法，以及人工智慧算法設計與改進思路。   
+
+
 
 
 # :open_mouth: Project suggestion        
@@ -203,5 +208,15 @@ SYSTEM MANAGEMENT PROJECTS
 * Employee Management System
 * Projects on Billing Management System
 
+
+
+# Others        
+
+![](.\images\image5.jpg)        
+![](.\images\image6.jpg)        
+![](.\images\image7.jpg)        
+![](.\images\image8.jpg)        
+![](.\images\image9.jpg)        
+      
 
 

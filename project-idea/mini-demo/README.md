@@ -1,6 +1,7 @@
 
+一些工具的小應用, 適合拿來練練邏輯, 和看看有哪些 python package 可以用.     
 
-https://zhuanlan.zhihu.com/p/349531368
+* 引用url https://zhuanlan.zhihu.com/p/349531368
 
 |NO. | Item | Package | Done |
 |:---:|:---:|:---:|:---:|
@@ -22,7 +23,9 @@ https://zhuanlan.zhihu.com/p/349531368
 | 17 | 维基百科文章摘要 | BeautifulSoup, nltk | ok 這個挺酷的 |
 | 18 | 获取谷歌搜索结果 | BeautifulSoup | maybe, internet connection |
 | 18-1 | 爬取百度搜索 | BeautifulSoup | ok |
-| 19 |  |  |  |
-| 20 |  |  |  |
-| 21 |  |  |  |
-| 22 |  |  |  |
+| 19 | 货币换算器 | forex-python | forex_python.converter.RatesNotAvailableError: Currency Rates Source Not Ready |
+| 20 | 键盘记录器 | pynput | ok |
+| 21 | 文章朗读器 | pyttsx3, BeautifulSoup | 返回none |
+| 22 | 短网址生成器 | contextlib | ok |
+
+

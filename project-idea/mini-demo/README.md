@@ -1,5 +1,5 @@
 
-一些工具的小應用, 適合拿來練練邏輯, 和看看有哪些 python package 可以用.     
+一些工具的小應用, 適合拿來練練邏輯, 和看看有哪些 python package 可以用. (2023/03/29)    
 
 * 引用url https://zhuanlan.zhihu.com/p/349531368
 

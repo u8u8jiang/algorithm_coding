@@ -259,3 +259,5 @@ https://iter01.com/568361.html
 4. 史上最全數據分析資料匯總！（含python、爬蟲、資料庫、大數據、Tableau、統計學等）
 https://allaboutdataanalysis.medium.com/%E5%8F%B2%E4%B8%8A%E6%9C%80%E5%85%A8%E6%95%B8%E6%93%9A%E5%88%86%E6%9E%90%E8%B3%87%E6%96%99%E5%8C%AF%E7%B8%BD-%E5%90%ABpython-%E7%88%AC%E8%9F%B2-%E8%B3%87%E6%96%99%E5%BA%AB-%E5%A4%A7%E6%95%B8%E6%93%9A-tableau-%E7%B5%B1%E8%A8%88%E5%AD%B8%E7%AD%89-ed90d6a1bd77   
 
+5. 10張架構圖包含Python所有方向的學習路線，你們要的體系全在這       
+https://medium.com/%E6%95%B8%E6%93%9A%E5%88%86%E6%9E%90%E4%B8%8D%E6%98%AF%E5%80%8B%E4%BA%8B/10%E5%BC%B5%E6%9E%B6%E6%A7%8B%E5%9C%96%E5%8C%85%E5%90%ABpython%E6%89%80%E6%9C%89%E6%96%B9%E5%90%91%E7%9A%84%E5%AD%B8%E7%BF%92%E8%B7%AF%E7%B7%9A-%E4%BD%A0%E5%80%91%E8%A6%81%E7%9A%84%E9%AB%94%E7%B3%BB%E5%85%A8%E5%9C%A8%E9%80%99-b754002901da

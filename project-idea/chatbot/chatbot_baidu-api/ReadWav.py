@@ -3,11 +3,12 @@
 from aip import AipSpeech
 
 
-
+# https://console.bce.baidu.com/ai/?_=1681029931851&fromai=1#/ai/speech/overview/index
 """ 你的 APPID AK SK """
 APP_ID = '32178987'
 API_KEY = 'INYsfOTEoPC4fPiQU8NXR2ui'
 SECRET_KEY = 'I1le9zRgfBElq3WzGxcGMgz7BbI4Pj1T'			#此处填写自己的密钥
+
 
 """调用接口, 调用BaiDu AI 接口进行录音、语音识别"""
 client = AipSpeech(APP_ID, API_KEY, SECRET_KEY)

@@ -1,8 +1,8 @@
 
 # Linux     
 
-9 system command        
-date, cal, uptime, w, whoami, man, df, frww, du     
+![](system_command.png)        
+   
 ![](top50_linuxcommands.jpg)        
 
 

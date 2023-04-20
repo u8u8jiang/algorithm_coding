@@ -1,9 +1,7 @@
 
 # Linux     
 
-![](system_command.png)        
-   
-![](top50_linuxcommands.jpg)        
+![](top50_linux.jpg)        
 
 
 

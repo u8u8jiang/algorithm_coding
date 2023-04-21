@@ -206,16 +206,6 @@ SYSTEM MANAGEMENT PROJECTS
 
 
 
-# Memo      
-
-* sql的語法的寫入順序是非常嚴格的，需要依select...from...where…group by…having…order by..limit...的順序輸入
-![](.\images\image4.jpg)        
-
-## 分散式系統的大分類：
-1. 分散式計算：Spark, Flink, Impala, Presto
-2. 分散式儲存：分散式的檔案系統 HDFS, S3, Minio；分散式的資料庫 Redis, Cassandra, Elasticsearch, MongoDB
-
-
 ## 雲端資料倉儲      
 雲端資料倉儲規劃，從以下四個層面介紹規劃流程：資料來源、分析需求、資料工作流(Data Pipeline)、資料建模(Data Modeling)
 ![](.\images\image3.jpg)        

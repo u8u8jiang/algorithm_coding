@@ -7,7 +7,7 @@
 | 3 | DEacademy |  2021-09-数据工程学院  | |
 | 4 | project-idea | ML-bigdata, mini-demo, visualization, chatbot  | 2023.03  |   
 | 5 | DEknow | linux, SQL reviw again | 2023.04 |       
-
+| 6 | recommand system | interview try mkt domain | 2023.04 |
 
 
 > git config --global --unset http.proxy

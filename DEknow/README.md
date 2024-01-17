@@ -1,9 +1,13 @@
 
 # Linux     
 
-![](top50_linux.jpg)        
+![](top50_linux.png)     
 
-
+# SQL       
+![](SQL_summary.jpg)   
 
 ## Related     
 Database_SQL/3_幕課網大數據開發體系課程/阶段1：走进大数据/3. linux_command.md, 4. linux_command.md, 5. linux_final.md           
+
+
+    
